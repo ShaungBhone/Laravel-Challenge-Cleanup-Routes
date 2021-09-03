@@ -10,7 +10,7 @@ class AdminDashboardController extends Controller
 {
     public function __invoke()
     {
-        //
+        $this->authorize('admin');
         $books = 'challenge';
 
         return view('admin.index', compact('books'));

@@ -12,8 +12,11 @@ class AdminBookController extends Controller
 {
     public function index()
     {
+        $this->authorize('admin');
         return view('admin.books.index', [
-            'books' => Book::latest()->with('authors', 'genres')->paginate()
+            'books' => Book::latest()
+                ->with('authors', 'genres')
+                ->paginate(),
         ]);
     }
 
@@ -28,7 +31,9 @@ class AdminBookController extends Controller
     {
         //
 
-        return redirect()->route('admin.books.index')->with('success', 'Book created.');
+        return redirect()
+            ->route('admin.books.index')
+            ->with('success', 'Book created.');
     }
 
     public function edit(Book $book)
@@ -42,20 +47,26 @@ class AdminBookController extends Controller
     {
         //
 
-        return redirect()->route('admin.books.index')->with('success', 'Book updated.');
+        return redirect()
+            ->route('admin.books.index')
+            ->with('success', 'Book updated.');
     }
 
     public function destroy(Book $book)
     {
         //
 
-        return redirect()->route('admin.books.index')->with('success', 'Book deleted.');
+        return redirect()
+            ->route('admin.books.index')
+            ->with('success', 'Book deleted.');
     }
 
     public function approveBook(Book $book)
     {
         //
 
-        return redirect()->route('admin.books.index')->with('success', 'Book approved.');
+        return redirect()
+            ->route('admin.books.index')
+            ->with('success', 'Book approved.');
     }
 }

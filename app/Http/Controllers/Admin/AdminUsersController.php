@@ -10,8 +10,9 @@ class AdminUsersController extends Controller
 {
     public function index()
     {
+        $this->authorize('admin');
         return view('admin.users.index', [
-            'users' => User::paginate(20)
+            'users' => User::paginate(20),
         ]);
     }
 
@@ -24,13 +25,17 @@ class AdminUsersController extends Controller
     {
         //
 
-        return redirect()->route('admin.users.index')->with('success', 'User updated.');
+        return redirect()
+            ->route('admin.users.index')
+            ->with('success', 'User updated.');
     }
 
     public function destroy(User $user)
     {
         //
 
-        return redirect()->route('admin.users.index')->with('success', 'User deleted.');
+        return redirect()
+            ->route('admin.users.index')
+            ->with('success', 'User deleted.');
     }
 }
